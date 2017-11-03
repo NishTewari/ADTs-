@@ -9,17 +9,20 @@
  */
 public class OrderedList {
 
+    //Starting - "head"
     private IntNode head;
     private int numItems;
 
     public OrderedList() {
+        
     }
 
     public void add(int num) {
-        
+    IntNode node = head;   
         
     }
 
+    
     public void remove(int num) {
         
         
