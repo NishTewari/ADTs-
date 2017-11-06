@@ -14,12 +14,17 @@ public class OrderedList {
     private int numItems;
 
     public OrderedList() {
-        
+       head = null;
+       numItems = 0;
     }
 
     public void add(int num) {
     IntNode node = head;   
-        
+        for (int position = 0; position < numItems; position++) {
+            for (int i = position + 1; i < numItems; i++) {
+                
+            }
+        }
     }
 
     
