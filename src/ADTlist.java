@@ -9,86 +9,98 @@
  * @author Adars
  */
 public class ADTlist {
-//Store all of the integers on the stack
 
+    //Store all of the integers on the stack
     private int[] stack;
     //keep track of how many items
     private int numItems;
 
     public ADTlist() {
+        // New stack array 
         stack = new int[10];
+        // zero number of items at the start.
         numItems = 0;
     }
 
-    public void push(int item) {
-        // if there is room in the stack 
-        if (numItems < stack.length) {
-            //put the item on the stack 
-            stack[numItems] = item;
-            numItems++;
-        } else {
-            //Make more room 
+    public void add(int index, int num) {
+        // check if there is room in the array 
+        if (numItems + 1 > stack.length) {
+            //Make another array for more room  
             int[] temp = new int[stack.length * 2];
-            //Copy items over
+            //copy the items from original array to temp array
             for (int i = 0; i < stack.length; i++) {
                 temp[i] = stack[i];
             }
-            //Stack becomes new array
+            //set original array to temp array
             stack = temp;
-            //add item 
-            stack[numItems] = item;
+        } else {
+            // add items to array 
+            for (int j = numItems - 1; j >= index; j--) {
+                stack[j + 1] = stack[j];
+            }
+            //set the position to the number being passed through
+            stack[index] = num;
+            //increase the number of items
             numItems++;
         }
-        //Knuth shuffle algorithm 
-        for (int i = 0; i < numItems; i++) {
-            //generate random spot to swap with 
-            int spot = (int) (Math.random() * (numItems - i) + i);
-            int temp = stack[i];
-            stack[i] = stack[spot];
-            stack[spot] = temp;
+    }
+    /**
+     * Remove a number at given index
+     *
+     * @param index
+     */
+    public void remove(int index) {
+        if (index < numItems) {
+            //move all number down 1 spot 
+            for (int i = index; i < numItems; i++) {
+                stack[i] = stack[i + 1];
+            }
+            //decrease the number of items 
+            numItems--;
         }
     }
 
-    public int pop() {
-        //get the top item on the stack
-        int item = stack[numItems - 1];
-        //one less item
-        numItems--;
-        //give back item 
-        return item;
-    }
-
+    /**
+     * returns the amount of items
+     *
+     * @return numItems
+     */
     public int size() {
         return numItems;
     }
 
-    public int peek() {
-        return stack[numItems - 1];
-    }
-
+    /**
+     * returns true or false if array is empty or not
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return numItems == 0;
     }
-    public void display(){
-        for (int i = 0; i < stack.length; i++) {
-            System.out.println(stack[i]);
-        }
+
+    /**
+     * returns the number at a specific index in the array.
+     *
+     * @param index
+     * @return
+     */
+    public void get(int index) {
+        System.out.println(stack[index]);
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Create a ADTlist
         ADTlist r = new ADTlist();
-
-        r.push(45);
-        r.push(56);
-        r.push(13);
-        r.push(23);
-        r.push(67);
-        r.push(15);
-        
-        r.display();
+        // random number generator 
+        for (int i = 0; i < 10; i++) {
+            r.add((int) (Math.random() * 10), (int) (Math.random() * 10));
+        }
+       
+        for (int i = 0; i < r.size(); i++) {
+            r.get(i);
+        }
     }
-
 }

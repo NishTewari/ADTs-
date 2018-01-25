@@ -13,6 +13,7 @@ import java.util.Stack;
 public class StringStack {
 
     public boolean inLang(String word) {
+        //Stack
         Stack<Character> stack = new Stack<Character>();
         //If the dollar sign is not in the middle of the word 
         //RETURN FALSE

@@ -62,7 +62,6 @@ public class OrderedList {
 
         while (node.getNext() != null && node.getNum() == num) {
             node = node.getNext();
-
         }
         IntNode toRemove = node.getNext();
         //its next node
@@ -91,7 +90,12 @@ public class OrderedList {
     public boolean isEmpty() {
         return numItems == 0;
     }
-
+    
+    /**
+     * get the number from specific position
+     * @param pos
+     * @return 
+     */
     public int get(int pos) {
         IntNode node = head;
         // move the number of times 
@@ -110,11 +114,12 @@ public class OrderedList {
 
         r.add(300);
         r.add(23);
+        r.add(162);
         r.add(14);
         r.add(90);
         r.add(98);
         r.add(2);
-        r.remove(2);
+       // r.remove(2);
 
         for (int i = 0; i < r.size(); i++) {
             System.out.println(r.get(i));
