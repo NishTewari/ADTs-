@@ -1,68 +1,43 @@
+
+import java.util.Stack;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Adars
  */
 public class StringStack {
 
-    private String[] stack;
-    private int numItems;
-
-    public StringStack() {
-        stack = new String[10];
-    }
-
-    public void push(String word) {
-        // if there is room in the stack 
-        if (numItems < stack.length) {
-            //put the item on the stack 
-            stack[numItems] = word;
-            numItems++;
-        } else {
-            //Make more room 
-            String[] temp = new String[stack.length * 2];
-            //Copy items over
-            for (int i = 0; i < stack.length; i++) {
-                temp[i] = stack[i];
-            }
-            //Stack becomes new array
-            stack = temp;
-            //add item 
-            stack[numItems] = word;
-            numItems++;
-        }
-
-    }
-
-    public static boolean inLang(String word) {
-
-        //Split word
-        String first = word.substring(0, word.indexOf("$"));
-        String last = word.substring(word.indexOf("$") + 1, word.length());
-        String rWord = "";
-        for (int i = last.length() - 1; i >= 0; i--) {
-            rWord = rWord + last.charAt(i);
-
-        }
-
-        //Check if first half of word is equal to the reverse word
-        if (first.equals(rWord)) {
-            return true;
-
-        } else {
+    public boolean inLang(String word) {
+        Stack<Character> stack = new Stack<Character>();
+        //If the dollar sign is not in the middle of the word 
+        //RETURN FALSE
+        if(word.charAt(word.length() / 2) != '$'){
             return false;
         }
-
-    }
-
-    public void display() {
-        for (int i = 0; i < numItems; i++) {
-            System.out.println(stack[i] + "");
+        //break the word into characters
+        // add them into the stack. 
+        for (int i = 0; i < word.length(); i++) {
+            stack.push(word.charAt(i));
+        }
+        String rev = "";
+        //keep going until its not empty 
+        //pops characters from the stack into the reverse String(rev)
+        while(!stack.isEmpty()){
+            rev += stack.pop();
+        }
+        // Check if the word equals the reverse word 
+        // and Check if there is a dollar sign in the middle 
+        if((word.equals(rev)) && word.charAt(word.length() / 2) == '$'){
+           // return true
+            return true;
+        }else{
+            // if not then return false 
+            return false;
         }
     }
 
@@ -71,16 +46,11 @@ public class StringStack {
      */
     public static void main(String[] args) {
         StringStack t = new StringStack();
-        String word = "hellow$ir";
-        t.push(word);
 
-        if (inLang(word)) {
-            System.out.println(word + " is true");
-
-        } else {
-            System.out.println(word + " is false");
-        }
-
+        System.out.println(t.inLang("cat$tac"));
+        System.out.println(t.inLang("wwes$ww"));
+        System.out.println(t.inLang("ra$rt"));
+        System.out.println(t.inLang("pat$tap"));
     }
 
 }
